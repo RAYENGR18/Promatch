@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Divider from "@/components/core-ui/Divider";
 import PortalLayout from "@/components/layouts/portal/PortalLayout";
+import { Link } from "react-router-dom";
+
 
 const jobs = [
   {
@@ -95,6 +97,20 @@ const jobs = [
 const HomePage = () => {
   return (
     <PortalLayout title="Home">
+      <nav className="flex justify-end gap-4 mt-4 mb-6">
+    <Link
+      to="/about"
+      className="text-indigo-600 hover:underline font-medium transition bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded"
+    >
+      À propos
+    </Link>
+    <Link
+      to="/contact"
+      className="text-indigo-600 hover:underline font-medium transition bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded"
+    >
+      Contact
+    </Link>
+  </nav>
       <aside className="sticky top-24 hidden w-80 shrink-0 xl:block">
         <div className="overflow-hidden rounded-lg bg-white shadow">
           <div className="px-4 py-5 sm:p-6">

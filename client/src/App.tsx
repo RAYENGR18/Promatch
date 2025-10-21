@@ -6,13 +6,15 @@ import { useAuth } from "./providers";
 
 const LoginPage = lazy(() => import("@/pages/AuthPages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/AuthPages/RegisterPage"));
-const ForgotPasswordPage = lazy(
-  () => import("@/pages/AuthPages/ForgotPasswordPage")
-);
+const ForgotPasswordPage = lazy(() => import("@/pages/AuthPages/ForgotPasswordPage"));
 const MyJobsPage = lazy(() => import("@/pages/MyJobsPage"));
 const SavedJobsPage = lazy(() => import("@/pages/SavedJobsPage"));
 const MessagesPage = lazy(() => import("@/pages/MessagesPage"));
 const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+
+// Ajoute tes nouvelles pages :
+const AboutUsPage = lazy(() => import("@/pages/AboutUsPage"));
+const ContactUsPage = lazy(() => import("@/pages/ContactUsPage"));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -26,6 +28,8 @@ function App() {
             <Route path="/saved-jobs" element={<SavedJobsPage />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/register" element={<Navigate to="/" />} />
             <Route path="/forgot-password" element={<Navigate to="/" />} />
@@ -35,6 +39,8 @@ function App() {
         <Routes>
           <Route path="/" element={<AppWrapper />}>
             <Route index element={<HomePage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -45,5 +51,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
