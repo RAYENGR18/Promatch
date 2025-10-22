@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import { IStores } from "@/interfaces";
+import { IModels, IStores } from "@/interfaces";
 import AuthService from "@/services/auth.service";
 
 const initialState = {
@@ -27,37 +27,38 @@ const useAuthStore = create<IStores.IAuthStore>((set) => ({
   },
 
   // This function is used to call the login endpoint
-  login: async (payload, options) => {
+   login: async (payload: IModels.ILoginPayload, _options?: any) => {
     set({ isLogging: true });
     try {
       const authService = new AuthService();
-      const response = await authService.login(payload, options);
+      const response = await authService.login(payload);
       set({ isLogging: false });
-      return response;
+      return response; // ✅ response est maintenant du type ILoginResponse
     } catch (error: any) {
       console.error(error);
       set({ isLogging: false });
-      set({ loginError: error.response.data.message });
+      set({ loginError: error.response?.data?.message });
       throw error;
     }
   },
 
-  // This function is used to call the register endpoint
-  register: async (payload, options) => {
-    set({ registerSuccessMessage: "" });
-    set({ registerErrorMessage: "" });
-    try {
-      const authService = new AuthService();
-      const response = await authService.register(payload, options);
-      set({ registerSuccessMessage: response.message });
-    } catch (error: any) {
-      console.error(error);
-      if (error.response) {
-        set({ registerErrorMessage: error.response.data.message });
-      }
-      throw error;
+
+register: async (payload: IModels.IRegisterPayload, _options?: any) => {
+  set({ registerSuccessMessage: "" });
+  set({ registerErrorMessage: "" });
+  try {
+    const authService = new AuthService();
+    const response = await authService.register(payload);
+    set({ registerSuccessMessage: response.data.message });
+  } catch (error: any) {
+    console.error(error);
+    if (error.response) {
+      set({ registerErrorMessage: error.response.data.message });
     }
-  },
+    throw error;
+  }
+},
+
 
   // This function is used to clear the login error message
   clearLoginError: () => {

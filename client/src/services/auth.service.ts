@@ -1,46 +1,28 @@
-// AuthService.ts
-
-// This service is responsible for handling authentication requests.
-
-import HttpService from "@/core/http.service";
-import { IModels } from "@/interfaces";
+// src/services/auth.service.ts
+import { API } from '@/core/http.service';
+import { IModels } from '@/interfaces';
 
 export default class AuthService {
-  private http: HttpService;
-
-  constructor() {
-    this.http = new HttpService();
-  }
-
   // Login user
-  public async login(payload: IModels.ILoginPayload, options?: any) {
-    return this.http
-      .service()
-      .post<IModels.ILoginResponse, IModels.ILoginPayload>(
-        "auth/login",
-        payload,
-        options
-      );
+   public async login(payload: IModels.ILoginPayload): Promise<IModels.ILoginResponse> {
+    const response = await API.post('/login/', payload);
+    return response.data; // ✅ On retourne seulement les données utiles
   }
+
 
   // Register user
-  public async register(payload: IModels.IRegisterPayload, options?: any) {
-    return this.http
-      .service()
-      .post<IModels.IRegisterResponse, IModels.IRegisterPayload>(
-        "auth/signup",
-        payload,
-        options
-      );
+  public async register(payload: IModels.IRegisterPayload): Promise<any> {
+    const response = await API.post('/register/', payload);
+    return response.data;
   }
 
   // Get current user
   public async getCurrentUser() {
-    return this.http.service().get<IModels.IUserAccount>("auth/me", {});
+    return API.get('/me/');
   }
 
   // Logout user
   public async logout() {
-    // TODO: Implement logout
+    return API.post('/logout/');
   }
 }

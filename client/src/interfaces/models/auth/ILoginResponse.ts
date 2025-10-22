@@ -1,4 +1,10 @@
+import { IUserAccount } from "../user-account";
+
+
 export interface ILoginResponse {
-  user: any;
-  token: string;
+  user: IUserAccount;     // ← plus précis
+  tokens: {
+    access: string;
+    refresh: string;
+  };
 }

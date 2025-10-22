@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const token = StorageService.getItem("access_token");
         if (token) {
           const authService = new AuthService();
-          const response = await authService.getCurrentUser();
-          setUser(response);
+          const { data } = await authService.getCurrentUser();
+          setUser(data);              // ✅ seul le corps JSON
           setIsAuthenticated(true);
         }
       } catch (error) {
