@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from '../NavBar/Navbar';
-import JobSearchPage from './components/JobSearchPage';
+import JobListing from './components/JobListing';
 
-const MyJobsPage: React.FC = () => {
+const JobDetail: React.FC = () => {
   return (
     <div>
       <div className="bg-black  text-white">
@@ -16,10 +16,10 @@ const MyJobsPage: React.FC = () => {
         <h1 className="text-5xl font-bold">Jobs</h1>
       </div>
     </div>
-    <JobSearchPage></JobSearchPage>
+    <JobListing></JobListing>
     </div>
     
   );
 };
 
-export default MyJobsPage;
+export default JobDetail;

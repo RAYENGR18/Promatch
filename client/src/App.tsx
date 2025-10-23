@@ -1,8 +1,9 @@
 import { lazy } from "react";
-import HomePage from "@/pages/HomePage";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AppWrapper from "./AppWrapper";
 import { useAuth } from "./providers";
+import HomePage1 from "./pages/HomePage1";
+import JobDetail from "./pages/JobDetail";
 
 const LoginPage = lazy(() => import("@/pages/AuthPages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/AuthPages/RegisterPage"));
@@ -23,7 +24,7 @@ function App() {
       {isAuthenticated ? (
         <Routes>
           <Route path="/" element={<AppWrapper />}>
-            <Route index element={<HomePage />} />
+            <Route index element={<HomePage1 />} />
             <Route path="/my-jobs" element={<MyJobsPage />} />
             <Route path="/saved-jobs" element={<SavedJobsPage />} />
             <Route path="/messages" element={<MessagesPage />} />
@@ -38,7 +39,9 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<AppWrapper />}>
-            <Route index element={<HomePage />} />
+            <Route index element={<HomePage1 />} />
+            <Route path="/my-jobs" element={<MyJobsPage />} />
+            <Route path="/job" element={<JobDetail />} />
             <Route path="/about" element={<AboutUsPage />} />
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/login" element={<LoginPage />} />
