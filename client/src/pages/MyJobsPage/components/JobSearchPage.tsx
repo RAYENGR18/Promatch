@@ -1,6 +1,11 @@
 
 import JobCard from '@/pages/HomePage1/components/JobCard';
 import React from 'react';
+import JobFilters from './JobFilters';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 type Job = {
   title: string;
   company: string;
@@ -50,44 +55,23 @@ const JobSearchPage: React.FC = () => {
     <div className="bg-gray-100 min-h-screen p-6 lg:px-24">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Sidebar */}
-        <aside className="md:col-span-1 bg-[#EBF5F4] p-4 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-4">Filters</h2>
-          <input
-            type="text"
-            placeholder="Job title or company"
-            className="w-full mb-4 px-3 py-2 border rounded"
-          />
-          <select className="w-full mb-4 px-3 py-2 border rounded">
-            <option>Choose city</option>
-            <option>New York</option>
-            <option>Los Angeles</option>
-            <option>Texas</option>
-          </select>
-          <div className="mb-4">
-            <h3 className="font-semibold mb-2">Category</h3>
-            <label className="block"><input type="checkbox" /> Commerce</label>
-            <label className="block"><input type="checkbox" /> Hotels & Tourism</label>
-            <label className="block"><input type="checkbox" /> Media</label>
-          </div>
-          <div className="mb-4">
-            <h3 className="font-semibold mb-2">Job Type</h3>
-            <label className="block"><input type="checkbox" /> Full Time</label>
-            <label className="block"><input type="checkbox" /> Part Time</label>
-          </div>
-          <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-            Apply Filters
-          </button>
-        </aside>
-
+      <JobFilters></JobFilters>
         {/* Job Listings */}
         <section className="md:col-span-3">
-          <div className="flex justify-between items-center mb-4">
-            <p className="text-sm text-gray-600">Showing 6–6 of 10 results</p>
-            <select className="px-3 py-2 border rounded">
-              <option>Sort by latest</option>
-              <option>Sort by salary</option>
-            </select>
-          </div>
+        <div className="flex justify-between items-center mb-4">
+  <p className="text-sm text-gray-600">Showing 6–6 of 10 results</p>
+
+  <div className="w-48"> {/* largeur fixe ou responsive */}
+    <FormControl fullWidth size="small">
+      <InputLabel>Sort by</InputLabel>
+      <Select label="Sort by">
+        <MenuItem value="latest">Sort by latest</MenuItem>
+        <MenuItem value="salary">Sort by salary</MenuItem>
+      </Select>
+    </FormControl>
+  </div>
+</div>
+
          {jobs.map((job, index) => (
       <div key={index} className="w-full">
         <JobCard {...job} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../NavBar/Navbar';
 import JobSearchPage from './components/JobSearchPage';
+import TopCompanies from './components/TopCompanies';
 
 const MyJobsPage: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const MyJobsPage: React.FC = () => {
       </div>
     </div>
     <JobSearchPage></JobSearchPage>
+    <TopCompanies></TopCompanies>
     </div>
     
   );
