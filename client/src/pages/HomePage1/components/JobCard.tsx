@@ -3,6 +3,7 @@ import { FiClock, FiMapPin, FiBookmark } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 type JobProps = {
+  id:number
   title: string;
   company: string;
   industry: string;
@@ -14,6 +15,7 @@ type JobProps = {
 };
 
 const JobCard: React.FC<JobProps> = ({
+  id,
   title,
   company,
   industry,
@@ -53,7 +55,7 @@ const JobCard: React.FC<JobProps> = ({
           <div className="flex items-center gap-1"><img src='assets/images/job/g135.png' alt='briefcase' className='w-5 h-5' /> {salary}</div>
           <div className="flex items-center gap-1"><FiMapPin color="#309689" size={20} /> {location}</div>
         </div>
-       <Link to={`/job`}>
+    <Link to={`/job/${id}`}>
   <button className="bg-[#309689] text-white px-4 py-2 rounded hover:bg-blue-700 transition">
     Apply
   </button>

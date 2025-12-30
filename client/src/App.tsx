@@ -41,7 +41,7 @@ function App() {
           <Route path="/" element={<AppWrapper />}>
             <Route index element={<HomePage1 />} />
             <Route path="/my-jobs" element={<MyJobsPage />} />
-            <Route path="/job" element={<JobDetail />} />
+          <Route path="/job/:id" element={<JobDetail />} />
             <Route path="/about" element={<AboutUsPage />} />
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/login" element={<LoginPage />} />

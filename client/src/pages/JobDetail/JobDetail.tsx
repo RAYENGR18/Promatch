@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../NavBar/Navbar';
 import JobListing from './components/JobListing';
-import { Link } from 'react-router-dom';
-import { FiBookmark, FiClock, FiMapPin } from 'react-icons/fi';
+import { Link, useParams } from 'react-router-dom';
+import { FiBookmark, FiBriefcase, FiClock, FiDollarSign, FiMapPin } from 'react-icons/fi';
+import axios from 'axios';
 
 const JobDetail: React.FC = () => {
+    const [job, setJob] = useState<any>(null); // stocke le job récupéré
+  const [loading, setLoading] = useState(true); // état de chargement
+   const { id } = useParams<{ id:string }>();
+   console.log('iddd',id)
+  useEffect(() => {
+  
+    const fetchJob = async () => {
+      try {
+      
+        const response = await axios.get(`http://127.0.0.1:8000/api/jobs/${id}/`);
+        console.log('jobbb',response)
+        setJob(response.data);
+      } catch (error) {
+        console.error("Erreur lors du chargement du job :", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (id) fetchJob();
+  }, [id]);
   return (
     <div>
       <div className="bg-black  text-white">
@@ -31,30 +53,42 @@ const JobDetail: React.FC = () => {
           {/* Middle section: logo + title/subtitle */}
           <div className="flex items-center gap-4 mb-4">
             
-              <img src="assets/images/Logo.png" alt={`logo`} className="w-12 h-12 object-contain rounded" />
+             {/* <img src="assets/images/Logo.png" alt={`logo`} className="w-12 h-12 object-contain rounded" />*/}
            
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">Corporate Solutions Executive</h2>
-              <p className="text-gray-600">d-it</p>
+              <h2 className="text-xl font-semibold text-gray-800">{job?.recruiter_email} </h2>
+              
             </div>
           </div>
     
           {/* Bottom section: info + apply button */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-            <div className="flex flex-wrap gap-4 text-gray-600 text-sm">
-              <div className="flex items-center gap-1"><img src='assets/images/job/briefcase.png' alt='briefcase' className='w-5 h-5' /> dfdf</div>
-              <div className="flex items-center gap-1"><img src='assets/images/job/clock.png' alt='briefcase' className='w-5 h-5' />Full Name</div>
-              <div className="flex items-center gap-1"><img src='assets/images/job/g135.png' alt='briefcase' className='w-5 h-5' /> 12121</div>
-              <div className="flex items-center gap-1"><FiMapPin color="#309689" size={20} /> fouchana</div>
-            </div>
-           <Link to={`/job`}>
+           <div className="flex flex-wrap gap-4 text-gray-600 text-sm">
+  <div className="flex items-center gap-1">
+    <FiBriefcase className="text-[#309689]" size={20} />
+    {job?.title}
+  </div>
+  <div className="flex items-center gap-1">
+    <FiClock className="text-[#309689]" size={20} />
+    Full time
+  </div>
+  <div className="flex items-center gap-1">
+    <FiDollarSign className="text-[#309689]" size={20} />
+    {job?.salary}
+  </div>
+  <div className="flex items-center gap-1">
+    <FiMapPin className="text-[#309689]" size={20} />
+    {job?.location}
+  </div>
+</div>
+           
       <button className="bg-[#309689] text-white px-16 py-2 rounded hover:bg-blue-700 transition">
         Apply Job
       </button>
-    </Link>
+
           </div>
         </div>
-    <JobListing></JobListing>
+    <JobListing id={id} />
     </div>
     
   );
